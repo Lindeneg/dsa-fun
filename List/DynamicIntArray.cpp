@@ -178,17 +178,3 @@ void list::DynamicIntArray::Reverse() {
     std::reverse(this->mData, this->mData + this->mSize);
 }
 
-void list::DynamicIntArray::Print() const {
-    std::cout << "(size " << this->mSize << " capacity " << this->mCapacity
-              << ")\n[";
-
-    for (int i = 0; i < this->mCapacity; i++) {
-        std::cout << this->mData[i];
-        if (i < this->mCapacity - 1) {
-            std::cout << ',';
-        }
-    }
-
-    std::cout << "]\n";
-}
-
