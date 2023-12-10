@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace list {
 template <typename T>
 struct Node {
@@ -17,9 +19,17 @@ class LinkedList {
     void Free(Node<T>* node);
 
    public:
-    LinkedList();
-    LinkedList(const LinkedList& linkedList);
+    LinkedList() : mSize(0), mHead(nullptr) {}
     ~LinkedList();
+    // copy constructor
+    LinkedList(const LinkedList& other);
+    // move constructor
+    LinkedList(LinkedList&& other) noexcept;
+
+    // copy assignment operator
+    LinkedList& operator=(const LinkedList& other);
+    // move assignment operator
+    LinkedList& operator=(LinkedList&& other) noexcept;
 
     inline int GetSize() const { return this->mSize; }
 

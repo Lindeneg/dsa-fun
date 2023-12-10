@@ -1,9 +1,7 @@
 #include "LinkedList.h"
 
+#include <cassert>
 #include <iostream>
-
-template <typename T>
-list::LinkedList<T>::LinkedList() : mSize(0), mHead(nullptr) {}
 
 template <typename T>
 list::LinkedList<T>::LinkedList(const LinkedList& other) {
@@ -16,12 +14,49 @@ list::LinkedList<T>::LinkedList(const LinkedList& other) {
 }
 
 template <typename T>
+list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept {
+    std::cout << "Move Constructor Called" << '\n';
+
+    this->mHead = nullptr;
+    this->mSize = 0;
+
+    this->From(other);
+    other.Clear();
+}
+
+template <typename T>
 list::LinkedList<T>::~LinkedList<T>() {
-    std::cout << "Destructor Called!\n";
+    std::cout << "Destructor Called size " << this->mSize << '\n';
 
     if (this->mHead == nullptr) return;
 
     this->Clear();
+}
+
+template <typename T>
+list::LinkedList<T>& list::LinkedList<T>::operator=(const LinkedList& other) {
+    std::cout << "Copy Assignment Operator called\n";
+
+    if (this == &other) return *this;
+
+    this->Clear();
+    this->From(other);
+
+    return *this;
+}
+
+template <typename T>
+list::LinkedList<T>& list::LinkedList<T>::operator=(
+    LinkedList&& other) noexcept {
+    std::cout << "Move Assignment Operator called\n";
+
+    if (this == &other) return *this;
+
+    this->Clear();
+    this->From(other);
+    other.Clear();
+
+    return *this;
 }
 
 template <typename T>
@@ -42,7 +77,9 @@ void list::LinkedList<T>::Print() const {
 
 template <typename T>
 T list::LinkedList<T>::GetNode(int index) const {
-    if (this->mHead == nullptr || index > this->mSize - 1) return NULL;
+    assert(index >= 0 && index < this->mSize && "index is out of bounds");
+
+    if (this->mHead == nullptr) return NULL;
 
     auto current = this->mHead;
     for (int i = 0; i < index; i++) {
@@ -54,11 +91,29 @@ T list::LinkedList<T>::GetNode(int index) const {
     return current->data;
 }
 
+/* Suppose we have this structure in memory
+ * |(INDEX)ADDRESS|
+ *
+ * |(0)100|->|(1)200|->|(2)50|->|(3)0|
+ *
+ * and we want to remove node at index n,
+ * we'd have to find node at index n-1 to get (n-1)->next reference
+ * then we want that reference to be either (n+1) or nullptr
+ *
+ * Suppoze n=2, then the above structure should result in:
+ *
+ * |(0)100|->|(1)200|->|(2)0|
+ *
+ * If index=0, then we'd have to change the head.
+ * That means newHead=oldHead->nex, or:
+ *
+ * |(0)200|->|(1)50|->|(2)0| */
 template <typename T>
 bool list::LinkedList<T>::RemoveNode(int index) {
-    if (this->mHead == nullptr || index > this->mSize - 1) return false;
+    assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
-    // handle case where head is removed
+    if (this->mHead == nullptr) return false;
+
     if (index == 0) {
         // keep ref to old head
         auto oldHead = this->mHead;
@@ -76,12 +131,12 @@ bool list::LinkedList<T>::RemoveNode(int index) {
         current = current->next;
     }
 
-    // take ref to delete target
+    // get ref to node(n)
     auto target = current->next;
-    // set current next to the entry after our delete target
+    // set node(n-1)->next to node(n+1)
     current->next = target->next;
 
-    // delete target
+    // delete node(n)
     this->Free(target);
 
     return true;
@@ -89,7 +144,6 @@ bool list::LinkedList<T>::RemoveNode(int index) {
 
 template <typename T>
 void list::LinkedList<T>::Clear() {
-    // traverse the list freeing entries
     auto current = this->mHead;
     while (current != nullptr) {
         auto tmp = current;
@@ -127,15 +181,38 @@ void list::LinkedList<T>::Append(T data) {
     ++this->mSize;
 }
 
+/* Suppose we have this structure in memory:
+ *
+ * |(INDEX)ADDRESS|
+ *
+ * |(0)100|->|(1)200|->|(2)50|->|(3)0|
+ *
+ * We want to insert node, with value k, at index n.
+ *
+ * We'd have to find node at index n-1 to get (n-1)->next reference,
+ * then we want that reference to point to new node.
+ *
+ * New node next reference should either be
+ * node that previously occupied n or nullptr.
+ *
+ * Suppoze n=2, then the above structure should result in:
+ *
+ * |(0)100|->|(1)200|->|(2)*newNode|->|(3)50|->|(4)0|
+ *
+ * If index=0, then we'd have to change the head.
+ * That means newNode->next=oldHead;head=newNode, or:
+ *
+ * |(0)*n|->|(1)100|->|(2)200|->|(3)50|->|(4)0| */
 template <typename T>
 void list::LinkedList<T>::InsertAt(T data, int index) {
+    assert(index >= 0 && index < this->mSize && "index is out of bounds");
+
     std::cout << "Inserting " << data << " at idx " << index << '\n';
 
     const auto newNode = new Node<T>();
     newNode->data = data;
     newNode->next = nullptr;
 
-    // set data as new head if applicable
     if (index == 0 || this->mHead == nullptr) {
         newNode->next = this->mHead;
         this->mHead = newNode;
@@ -143,8 +220,6 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
         return;
     }
 
-    // else find the desired position
-    // if index >= mSize, data is new tail
     auto current = this->mHead;
     for (int i = 0; i < index - 1; i++) {
         if (current->next == nullptr) break;
@@ -155,6 +230,18 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
     ++this->mSize;
 }
 
+/* Suppose we have this structure in memory:
+ *
+ * |(INDEX)ADDRESS|
+ *
+ * |(0)100|->|(1)200|->|(2)50|->|(3)0|
+ *
+ * We want to reverse that structure. In a nutshell,
+ * for a given n, we want the next reference to
+ * either be the previous node (n-1) or nullptr
+ *
+ * In the above structure that would mean n0 would
+ * point to nullptr. n1 would point to n0 and so on. */
 template <typename T>
 void list::LinkedList<T>::Reverse() {
     if (this->mHead == nullptr || this->mSize <= 1) return;
@@ -163,7 +250,9 @@ void list::LinkedList<T>::Reverse() {
     Node<T>* prev = nullptr;
 
     while (current != nullptr) {
+        // dont loose ref to next
         auto next = current->next;
+        // set next to previous (reverse)
         current->next = prev;
         prev = current;
         current = next;
@@ -176,6 +265,11 @@ template <typename T>
 void list::LinkedList<T>::From(const LinkedList& other) {
     // if source is empty, return
     if (other.mHead == nullptr) return;
+
+    // if we already have data, delete it
+    if (this->mSize > 0) {
+        this->Clear();
+    }
 
     // traverse the source list
     auto current = other.mHead;
@@ -197,3 +291,4 @@ void list::LinkedList<T>::Free(Node<T>* node) {
 }
 
 template class list::LinkedList<int>;
+template class list::LinkedList<double>;
