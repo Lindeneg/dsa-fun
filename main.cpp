@@ -1,7 +1,7 @@
-#include "List/LinkedListDemo.h"
+#include "List/DynamicIntArrayDemo.h"
 
 int main() {
-    list::RunLinkedList();
+    list::RunDynamicArray();
 
     return 0;
 }
