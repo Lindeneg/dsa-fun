@@ -1,5 +1,6 @@
 #include "DynamicIntArray.h"
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 
@@ -65,12 +66,12 @@ list::DynamicIntArray::~DynamicIntArray() {
 }
 
 const int& list::DynamicIntArray::operator[](int index) const {
-    assert(this->mData != nullptr && index < this->mSize);
+    assert(this->mData != nullptr && index < this->mCapacity);
     return this->mData[index];
 }
 
 int& list::DynamicIntArray::operator[](int index) {
-    assert(this->mData != nullptr && index < this->mSize);
+    assert(this->mData != nullptr && index < this->mCapacity);
     return this->mData[index];
 }
 
@@ -164,9 +165,17 @@ void list::DynamicIntArray::Clear() {
     this->mSize = 0;
 
     // array is now empty, might as well resize it if appropiate
-    if (this->mCapacity > INITIAL_CAPACITY * RESIZE_MULTIPLIER) {
+    if (this->mCapacity >= INITIAL_CAPACITY * RESIZE_MULTIPLIER) {
         this->Resize(INITIAL_CAPACITY);
     }
+}
+
+void list::DynamicIntArray::Reverse() {
+    // alternatively, create a new array of same size
+    // iterate i = this->mSize; i <= 0; i--; and set
+    // members of the new array to effectievly reverse
+    // however std::reverse is great and works with pointers
+    std::reverse(this->mData, this->mData + this->mSize);
 }
 
 void list::DynamicIntArray::Print() const {

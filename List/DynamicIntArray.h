@@ -31,8 +31,7 @@ class DynamicIntArray {
     int& operator[](int index);
 
     bool Append(int data);
-    // void InsertAt(int data, int index);
-    // void Reverse();
+    void Reverse();
     void Clear();
     void Print() const;
 };
