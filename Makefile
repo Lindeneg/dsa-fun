@@ -1,5 +1,10 @@
+MAIN_FILE = main.cpp
+SOURCE_FILES = $(wildcard **/*.cpp)
+
 dev:
-	clang++ main.cpp List/*.cpp \
+	clang++ \
+		${MAIN_FILE} \
+		$(SOURCE_FILES) \
 		-std=c++17 \
 		-ggdb \
 		-pedantic-errors \
