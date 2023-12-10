@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <ostream>
 
 template <typename T>
 list::LinkedList<T>::LinkedList(const LinkedList& other)
@@ -53,22 +54,6 @@ list::LinkedList<T>& list::LinkedList<T>::operator=(
     other.Clear();
 
     return *this;
-}
-
-template <typename T>
-void list::LinkedList<T>::Print() const {
-    std::cout << "(size " << this->mSize << ") [";
-
-    if (this->mHead != nullptr) {
-        auto current = this->mHead;
-        while (current->next != nullptr) {
-            std::cout << current->data << ',';
-            current = current->next;
-        }
-        std::cout << current->data;
-    }
-
-    std::cout << "]\n";
 }
 
 template <typename T>

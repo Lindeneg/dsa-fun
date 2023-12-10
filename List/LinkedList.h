@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 namespace list {
 template <typename T>
 struct Node {
@@ -29,6 +31,24 @@ class LinkedList {
     // move assignment operator
     LinkedList& operator=(LinkedList&& other) noexcept;
 
+    inline friend std::ostream& operator<<(std::ostream& out,
+                                           const LinkedList<T>& linkedList) {
+        out << "(size " << linkedList.mSize << ") [";
+
+        if (linkedList.mHead != nullptr) {
+            auto current = linkedList.mHead;
+            while (current->next != nullptr) {
+                out << current->data << ',';
+                current = current->next;
+            }
+            out << current->data;
+        }
+
+        out << "]\n";
+
+        return out;
+    }
+
     inline int GetSize() const { return this->mSize; }
 
     Node<T>* GetNode(int index) const;
@@ -37,7 +57,6 @@ class LinkedList {
     void InsertAt(T data, int index);
     void Reverse();
     void Clear();
-    void Print() const;
 };
 }  // namespace list
 

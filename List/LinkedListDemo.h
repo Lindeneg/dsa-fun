@@ -13,52 +13,45 @@ inline void RunLinkedList() {
     list1.Append(3);
     list1.Append(7);
 
-    std::cout << "List1: ";
-    list1.Print();
+    std::cout << "List1: " << list1;
 
     std::cout << "\nCoping List1 into List2\n";
     LinkedList<int> list2{list1};
 
+    std::cout << "List2: " << list2;
+
     std::cout << "\nAdding more to List2\n";
     list2.InsertAt(42, 2);
+    std::cout << "List2: " << list2;
     list2.InsertAt(8, 4);
 
-    std::cout << "List1: ";
-    list1.Print();
-    std::cout << "List2: ";
-    list2.Print();
+    std::cout << "List2: " << list2;
 
     std::cout << "\nCreate empty List3:\n";
     LinkedList<int> list3{};
 
-    std::cout << "List3: ";
-    list3.Print();
+    std::cout << "List3: " << list3;
 
     std::cout << "\nCopy-assigning List1 to List3\n";
     list3 = list1;
 
-    std::cout << "List1: ";
-    list1.Print();
-    std::cout << "List3: ";
-    list3.Print();
+    std::cout << "List1: " << list1 << "List3: " << list3;
 
-    std::cout << "\nRemove index 1 and 3 from List3\n";
+    std::cout << "\nRemove value at index 1 from List3\n";
     list3.RemoveNode(1);
+    std::cout << "List3: " << list3;
+    std::cout << "Remove value at index 3 from List3\n";
     list3.RemoveNode(3);
+    std::cout << "List3: " << list3;
 
-    std::cout << "List3: ";
-    list3.Print();
+    std::cout << "\nGetNode List1 " << list1;
+    std::cout << "n2: " << list1.GetNode(2)->data
+              << ", n0: " << list1.GetNode(0)->data
+              << ", n4: " << list1.GetNode(4)->data << '\n';
 
-    std::cout << "\nGetNode List1 ";
-    list1.Print();
-    std::cout << "n2: " << list1.GetNode(2) << ", n0: " << list1.GetNode(0)
-              << ", n4: " << list1.GetNode(4) << '\n';
-
-    std::cout << "\nReverse List2\nBefore: ";
-    list2.Print();
+    std::cout << "\nReverse List2\nBefore: " << list2;
     list2.Reverse();
-    std::cout << "After:  ";
-    list2.Print();
+    std::cout << "After:  " << list2;
 
     std::cout << "\nTesting move constructor\n";
     std::vector<LinkedList<double>> vec;
