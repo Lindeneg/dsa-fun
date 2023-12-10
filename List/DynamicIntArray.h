@@ -12,24 +12,23 @@ class DynamicIntArray {
     int mCapacity;
 
     bool Resize(int newCapacity);
+    void From(const DynamicIntArray& other);
+    void InitUninitializedData();
 
    public:
     DynamicIntArray();
-    // DynamicIntArray(const DynamicIntArray& other);
-    // DynamicIntArray(DynamicIntArray&& other) noexcept;
+    DynamicIntArray(const DynamicIntArray& other);
+    DynamicIntArray(DynamicIntArray&& other) noexcept;
     ~DynamicIntArray();
 
     inline int GetSize() const { return this->mSize; }
     inline int GetCapacity() const { return this->mCapacity; }
 
-    // copy assign
-    // DynamicIntArray& operator=(const DynamicIntArray& other);
-    // move assign
-    // DynamicIntArray& operator=(DynamicIntArray&& other) noexcept;
-    // get from index
-    // const int& operator[](int index) const;
-    // reassign from index
-    // int& operator[](int index);
+    DynamicIntArray& operator=(const DynamicIntArray& other);
+    DynamicIntArray& operator=(DynamicIntArray&& other) noexcept;
+
+    const int& operator[](int index) const;
+    int& operator[](int index);
 
     bool Append(int data);
     // void InsertAt(int data, int index);
