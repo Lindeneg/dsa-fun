@@ -5,7 +5,7 @@
 
 namespace list {
 inline void RunLinkedList() {
-    LinkedList<int> list1;
+    LinkedList<int> list1{};
 
     list1.Append(2);
     list1.Append(4);
@@ -17,7 +17,7 @@ inline void RunLinkedList() {
     list1.Print();
 
     std::cout << "\nCoping List1 into List2\n";
-    LinkedList<int> list2 = list1;
+    LinkedList<int> list2{list1};
 
     std::cout << "\nAdding more to List2\n";
     list2.InsertAt(42, 2);
@@ -29,7 +29,7 @@ inline void RunLinkedList() {
     list2.Print();
 
     std::cout << "\nCreate empty List3:\n";
-    LinkedList<int> list3;
+    LinkedList<int> list3{};
 
     std::cout << "List3: ";
     list3.Print();
@@ -65,7 +65,7 @@ inline void RunLinkedList() {
     vec.push_back(LinkedList<double>{});
 
     std::cout << "\nTesting move assignment operator\n";
-    LinkedList<int> test;
+    LinkedList<int> test{};
     test = std::move(list3);
 
     std::cout << '\n';
