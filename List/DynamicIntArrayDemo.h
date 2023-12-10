@@ -49,6 +49,6 @@ inline void RunDynamicArray() {
     arr2.Reverse();
     std::cout << "After: " << arr2;
 
-    std::cout << '\n';
+    std::cout << "Ending Demo\n";
 }
 }  // namespace list

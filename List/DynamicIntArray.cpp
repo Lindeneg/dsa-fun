@@ -29,6 +29,15 @@ list::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
     other.mSize = 0;
 }
 
+list::DynamicIntArray::~DynamicIntArray() {
+    std::cout << "Deconstructor called!\n";
+    if (this->mData == nullptr) return;
+
+    delete[] this->mData;
+    this->mSize = 0;
+    this->mCapacity = 0;
+}
+
 list::DynamicIntArray& list::DynamicIntArray::operator=(
     const DynamicIntArray& other) {
     std::cout << "Copy Assignment Operator called!\n";
@@ -54,15 +63,6 @@ list::DynamicIntArray& list::DynamicIntArray::operator=(
     other.mSize = 0;
 
     return *this;
-}
-
-list::DynamicIntArray::~DynamicIntArray() {
-    std::cout << "Deconstructor called!\n";
-    if (this->mData == nullptr) return;
-
-    delete[] this->mData;
-    this->mSize = 0;
-    this->mCapacity = 0;
 }
 
 const int& list::DynamicIntArray::operator[](int index) const {
