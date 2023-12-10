@@ -4,21 +4,17 @@
 #include <iostream>
 
 template <typename T>
-list::LinkedList<T>::LinkedList(const LinkedList& other) {
+list::LinkedList<T>::LinkedList(const LinkedList& other)
+    : mSize(0), mHead(nullptr) {
     std::cout << "Copy Constructor Called\n";
-
-    this->mHead = nullptr;
-    this->mSize = 0;
 
     this->From(other);
 }
 
 template <typename T>
-list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept {
+list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
+    : mSize(0), mHead(nullptr) {
     std::cout << "Move Constructor Called" << '\n';
-
-    this->mHead = nullptr;
-    this->mSize = 0;
 
     this->From(other);
     other.Clear();
@@ -76,19 +72,19 @@ void list::LinkedList<T>::Print() const {
 }
 
 template <typename T>
-T list::LinkedList<T>::GetNode(int index) const {
+list::Node<T>* list::LinkedList<T>::GetNode(int index) const {
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
-    if (this->mHead == nullptr) return NULL;
+    if (this->mHead == nullptr) return nullptr;
 
     auto current = this->mHead;
     for (int i = 0; i < index; i++) {
-        if (current->next == nullptr) return NULL;
+        if (current->next == nullptr) return nullptr;
         current = current->next;
     }
-    if (current == nullptr) return NULL;
+    if (current == nullptr) return nullptr;
 
-    return current->data;
+    return current;
 }
 
 /* Suppose we have this structure in memory
@@ -105,7 +101,7 @@ T list::LinkedList<T>::GetNode(int index) const {
  * |(0)100|->|(1)200|->|(2)0|
  *
  * If index=0, then we'd have to change the head.
- * That means newHead=oldHead->nex, or:
+ * That means newHead=oldHead->next, or:
  *
  * |(0)200|->|(1)50|->|(2)0| */
 template <typename T>

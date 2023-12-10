@@ -2,9 +2,10 @@ MAIN_FILE = main.cpp
 SOURCE_FILES = $(wildcard **/*.cpp)
 
 dev:
-	clang++ \
+	g++ \
 		${MAIN_FILE} \
 		$(SOURCE_FILES) \
+		-static-libstdc++ \
 		-std=c++17 \
 		-ggdb \
 		-pedantic-errors \
@@ -14,4 +15,4 @@ run:
 	./a.exe
 
 clean:
-	rm a.exe a.ilk a.pdb
+	rm a.exe
