@@ -186,9 +186,9 @@ void list::LinkedList<T>::Append(T data) {
  * |(0)*n|->|(1)100|->|(2)200|->|(3)50|->|(4)0| */
 template <typename T>
 void list::LinkedList<T>::InsertAt(T data, int index) {
-    assert(index >= 0 && index < this->mSize && "index is out of bounds");
-
     std::cout << "Inserting " << data << " at idx " << index << '\n';
+
+    assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
     const auto newNode = new Node<T>();
     newNode->data = data;
@@ -265,6 +265,9 @@ void list::LinkedList<T>::From(const LinkedList& other) {
 
 template <typename T>
 void list::LinkedList<T>::Free(Node<T>* node) {
+    assert(node != nullptr && "cannot free nullptr");
+    assert(this->mSize > 0 && "cannot free when size is non-positive");
+
     std::cout << "Freeing " << node->data << '\n';
 
     delete node;
