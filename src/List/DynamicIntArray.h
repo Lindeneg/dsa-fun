@@ -1,6 +1,8 @@
-#pragma once
+#ifndef LIST_DYNAMICINTARRAY_H_
+#define LIST_DYNAMICINTARRAY_H_
 
 #include <ostream>
+
 namespace list {
 
 class DynamicIntArray {
@@ -51,3 +53,5 @@ class DynamicIntArray {
     void Clear();
 };
 }  // namespace list
+
+#endif /* LIST_DYNAMICINTARRAY_H_ */

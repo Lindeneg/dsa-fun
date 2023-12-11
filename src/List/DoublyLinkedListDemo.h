@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIST_DOUBLYLINKEDLISTDEMO_H_
+#define LIST_DOUBLYLINKEDLISTDEMO_H_
 
 #include <iostream>
 
@@ -45,3 +46,5 @@ inline void RunDoublyLinkedList() {
     std::cout << '\n';
 }
 }  // namespace list
+
+#endif /* LIST_DOUBLYLINKEDLISTDEMO_H_ */

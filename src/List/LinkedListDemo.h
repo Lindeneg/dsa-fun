@@ -1,3 +1,6 @@
+#ifndef LIST_LINKEDLISTDEMO_H_
+#define LIST_LINKEDLISTDEMO_H_
+
 #include <iostream>
 #include <vector>
 
@@ -64,3 +67,5 @@ inline void RunLinkedList() {
     std::cout << '\n';
 }
 }  // namespace list
+
+#endif /* LIST_LINKEDLISTDEMO_H_ */

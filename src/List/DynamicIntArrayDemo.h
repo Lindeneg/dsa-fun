@@ -1,3 +1,6 @@
+#ifndef LIST_DYNAMICINTARRAYDEMO_H_
+#define LIST_DYNAMICINTARRAYDEMO_H_
+
 #include <iostream>
 
 #include "DynamicIntArray.h"
@@ -52,3 +55,5 @@ inline void RunDynamicArray() {
     std::cout << "Ending Demo\n";
 }
 }  // namespace list
+
+#endif /* LIST_DYNAMICINTARRAYDEMO_H_ */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIST_LINKEDLIST_H_
+#define LIST_LINKEDLIST_H_
 
 #include <ostream>
 
@@ -60,3 +61,4 @@ class LinkedList {
 };
 }  // namespace list
 
+#endif /* LIST_LINKEDLIST_H_ */

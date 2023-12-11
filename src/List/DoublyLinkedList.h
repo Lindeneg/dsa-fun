@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIST_DOUBLYLINKEDLIST_H_
+#define LIST_DOUBLYLINKEDLIST_H_
 
 #include <ostream>
 
@@ -52,3 +53,5 @@ class DoublyLinkedList {
     void Clear();
 };
 }  // namespace list
+
+#endif /* LIST_DOUBLYLINKEDLIST_H_ */
