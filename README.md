@@ -1,3 +1,2 @@
-Just some fun with algorithms and data-structures.
+Just some fun with C++
 
-I don't really know what I'm doing but hopefully this is a way to get better at DSA and C++.
