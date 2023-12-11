@@ -84,6 +84,24 @@ void list::Stack::From(const Stack& other) {
     }
 }
 
+void list::Stack::Reverse() {
+    std::cout << "Reversing stack\n";
+    if (this->mTop == nullptr || this->mTop->next == nullptr) {
+        return;
+    }
+
+    auto current = this->mTop;
+    StackNode* prev = nullptr;
+    while (current->next != nullptr) {
+        auto next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    current->next = prev;
+    this->mTop = current;
+}
+
 void list::Stack::Clear() {
     if (this->mTop == nullptr) {
         return;

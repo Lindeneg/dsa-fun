@@ -18,14 +18,17 @@ inline void RunStack() {
     s.Push(14);
     s.Push(8);
 
+    std::cout << s;
+
     Stack ss = s;
+    ss.Reverse();
 
     std::cout << s;
     std::cout << ss;
 
-    std::cout << s.Pop() << s << '\n';
-    std::cout << s.Pop() << s << '\n';
-    std::cout << s.Pop() << s << '\n';
+    std::cout << ss.Pop() << ss << '\n';
+    std::cout << ss.Pop() << ss << '\n';
+    std::cout << ss.Pop() << ss << '\n';
 
     std::cout << '\n';
 }

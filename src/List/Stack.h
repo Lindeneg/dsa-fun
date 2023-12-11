@@ -49,6 +49,7 @@ class Stack {
 
     inline bool IsEmpty() const { return this->mTop == nullptr; }
 
+    void Reverse();
     void Push(int data);
     void Clear();
     int Pop();
