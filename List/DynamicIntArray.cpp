@@ -31,18 +31,20 @@ list::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
 
 list::DynamicIntArray::~DynamicIntArray() {
     std::cout << "Deconstructor called!\n";
-    if (this->mData == nullptr) return;
-
-    delete[] this->mData;
-    this->mSize = 0;
-    this->mCapacity = 0;
+    if (this->mData != nullptr) {
+        delete[] this->mData;
+        this->mSize = 0;
+        this->mCapacity = 0;
+    }
 }
 
 list::DynamicIntArray& list::DynamicIntArray::operator=(
     const DynamicIntArray& other) {
     std::cout << "Copy Assignment Operator called!\n";
 
-    if (this == &other) return *this;
+    if (this == &other) {
+        return *this;
+    }
 
     this->From(other);
 
@@ -53,7 +55,9 @@ list::DynamicIntArray& list::DynamicIntArray::operator=(
     DynamicIntArray&& other) noexcept {
     std::cout << "Move Assignment Operator called!\n";
 
-    if (this == &other) return *this;
+    if (this == &other) {
+        return *this;
+    }
 
     this->From(other);
 
@@ -157,7 +161,9 @@ bool list::DynamicIntArray::Append(int data) {
 void list::DynamicIntArray::Clear() {
     std::cout << "Clearing Array\n";
 
-    if (this->mSize <= 0) return;
+    if (this->mSize <= 0) {
+        return;
+    }
 
     for (int i = 0; i < this->mSize; i++) {
         this->mData[i] = 0;

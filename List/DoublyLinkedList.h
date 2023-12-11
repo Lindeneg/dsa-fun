@@ -14,11 +14,17 @@ class DoublyLinkedList {
     Node2* mHead;
     int mSize;
 
+    void From(const DoublyLinkedList& other);
     void Free(Node2* node);
 
    public:
     DoublyLinkedList() : mHead(nullptr), mSize(0) {}
     ~DoublyLinkedList();
+    DoublyLinkedList(const DoublyLinkedList& other);
+    DoublyLinkedList(DoublyLinkedList&& other) noexcept;
+
+    DoublyLinkedList& operator=(const DoublyLinkedList& other);
+    DoublyLinkedList& operator=(DoublyLinkedList&& other) noexcept;
 
     inline friend std::ostream& operator<<(std::ostream& out,
                                            const DoublyLinkedList& linkedList) {
@@ -38,11 +44,11 @@ class DoublyLinkedList {
         return out;
     }
 
-    // Node2* GetNode(int index) const;
+    int GetNode(int index) const;
     void Append(int data);
-    // void InsertAt(int data, int index);
-    // void RemoveNode(int index);
-    // void Reverse();
+    void InsertAt(int data, int index);
+    void RemoveNode(int index);
+    void Reverse();
     void Clear();
 };
 }  // namespace list

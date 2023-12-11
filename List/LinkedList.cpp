@@ -22,52 +22,16 @@ list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
 }
 
 template <typename T>
-list::LinkedList<T>::~LinkedList<T>() {
-    std::cout << "Destructor Called size " << this->mSize << '\n';
-
-    if (this->mHead == nullptr) return;
-
-    this->Clear();
-}
-
-template <typename T>
-list::LinkedList<T>& list::LinkedList<T>::operator=(const LinkedList& other) {
-    std::cout << "Copy Assignment Operator called\n";
-
-    if (this == &other) return *this;
-
-    this->Clear();
-    this->From(other);
-
-    return *this;
-}
-
-template <typename T>
-list::LinkedList<T>& list::LinkedList<T>::operator=(
-    LinkedList&& other) noexcept {
-    std::cout << "Move Assignment Operator called\n";
-
-    if (this == &other) return *this;
-
-    this->Clear();
-    this->From(other);
-    other.Clear();
-
-    return *this;
-}
-
-template <typename T>
 list::Node<T>* list::LinkedList<T>::GetNode(int index) const {
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
-    if (this->mHead == nullptr) return nullptr;
-
     auto current = this->mHead;
-    for (int i = 0; i < index; i++) {
-        if (current->next == nullptr) return nullptr;
+    for (auto i = 0; i < index; i++) {
+        if (current == nullptr) {
+            return nullptr;
+        }
         current = current->next;
     }
-    if (current == nullptr) return nullptr;
 
     return current;
 }
@@ -93,7 +57,9 @@ template <typename T>
 bool list::LinkedList<T>::RemoveNode(int index) {
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
-    if (this->mHead == nullptr) return false;
+    if (this->mHead == nullptr) {
+        return false;
+    }
 
     if (index == 0) {
         // keep ref to old head
@@ -107,8 +73,10 @@ bool list::LinkedList<T>::RemoveNode(int index) {
     }
 
     auto current = this->mHead;
-    for (int i = 0; i < index - 1; i++) {
-        if (current->next == nullptr) return false;
+    for (auto i = 0; i < index - 1; i++) {
+        if (current->next == nullptr) {
+            return false;
+        }
         current = current->next;
     }
 
@@ -203,7 +171,9 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
 
     auto current = this->mHead;
     for (int i = 0; i < index - 1; i++) {
-        if (current->next == nullptr) break;
+        if (current->next == nullptr) {
+            break;
+        }
         current = current->next;
     }
     newNode->next = current->next;
@@ -225,7 +195,9 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
  * point to nullptr. n1 would point to n0 and so on. */
 template <typename T>
 void list::LinkedList<T>::Reverse() {
-    if (this->mHead == nullptr || this->mSize <= 1) return;
+    if (this->mHead == nullptr || this->mSize <= 1) {
+        return;
+    }
 
     auto current = this->mHead;
     Node<T>* prev = nullptr;
@@ -245,7 +217,9 @@ void list::LinkedList<T>::Reverse() {
 template <typename T>
 void list::LinkedList<T>::From(const LinkedList& other) {
     // if source is empty, return
-    if (other.mHead == nullptr) return;
+    if (other.mHead == nullptr) {
+        return;
+    }
 
     // if we already have data, delete it
     if (this->mSize > 0) {
@@ -272,6 +246,45 @@ void list::LinkedList<T>::Free(Node<T>* node) {
 
     delete node;
     --this->mSize;
+}
+
+template <typename T>
+list::LinkedList<T>& list::LinkedList<T>::operator=(const LinkedList& other) {
+    std::cout << "Copy Assignment Operator called\n";
+
+    if (this == &other) {
+        return *this;
+    }
+
+    this->Clear();
+    this->From(other);
+
+    return *this;
+}
+
+template <typename T>
+list::LinkedList<T>& list::LinkedList<T>::operator=(
+    LinkedList&& other) noexcept {
+    std::cout << "Move Assignment Operator called\n";
+
+    if (this == &other) {
+        return *this;
+    }
+
+    this->Clear();
+    this->From(other);
+    other.Clear();
+
+    return *this;
+}
+
+template <typename T>
+list::LinkedList<T>::~LinkedList<T>() {
+    std::cout << "Destructor Called size " << this->mSize << '\n';
+
+    if (this->mHead != nullptr) {
+        this->Clear();
+    }
 }
 
 template class list::LinkedList<int>;
