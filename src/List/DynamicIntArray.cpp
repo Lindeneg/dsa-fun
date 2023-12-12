@@ -4,20 +4,20 @@
 #include <cassert>
 #include <iostream>
 
-list::DynamicIntArray::DynamicIntArray()
+List::DynamicIntArray::DynamicIntArray()
     : mData(new int[INITIAL_CAPACITY]), mSize(0), mCapacity(INITIAL_CAPACITY) {
     if (this->mData != nullptr) {
         this->InitUninitializedData();
     }
 }
 
-list::DynamicIntArray::DynamicIntArray(const DynamicIntArray& other)
+List::DynamicIntArray::DynamicIntArray(const DynamicIntArray& other)
     : mData(nullptr), mSize(0), mCapacity(0) {
     std::cout << "Copy Constructor Called!\n";
     this->From(other);
 }
 
-list::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
+List::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
     : mData(nullptr), mSize(0), mCapacity(0) {
     std::cout << "Move Constructor Called!\n";
 
@@ -29,7 +29,7 @@ list::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
     other.mSize = 0;
 }
 
-list::DynamicIntArray::~DynamicIntArray() {
+List::DynamicIntArray::~DynamicIntArray() {
     std::cout << "Deconstructor called!\n";
     if (this->mData != nullptr) {
         delete[] this->mData;
@@ -38,7 +38,7 @@ list::DynamicIntArray::~DynamicIntArray() {
     }
 }
 
-list::DynamicIntArray& list::DynamicIntArray::operator=(
+List::DynamicIntArray& List::DynamicIntArray::operator=(
     const DynamicIntArray& other) {
     std::cout << "Copy Assignment Operator called!\n";
 
@@ -51,7 +51,7 @@ list::DynamicIntArray& list::DynamicIntArray::operator=(
     return *this;
 }
 
-list::DynamicIntArray& list::DynamicIntArray::operator=(
+List::DynamicIntArray& List::DynamicIntArray::operator=(
     DynamicIntArray&& other) noexcept {
     std::cout << "Move Assignment Operator called!\n";
 
@@ -69,17 +69,17 @@ list::DynamicIntArray& list::DynamicIntArray::operator=(
     return *this;
 }
 
-const int& list::DynamicIntArray::operator[](int index) const {
+const int& List::DynamicIntArray::operator[](int index) const {
     assert(this->mData != nullptr && index < this->mCapacity);
     return this->mData[index];
 }
 
-int& list::DynamicIntArray::operator[](int index) {
+int& List::DynamicIntArray::operator[](int index) {
     assert(this->mData != nullptr && index < this->mCapacity);
     return this->mData[index];
 }
 
-void list::DynamicIntArray::From(const DynamicIntArray& other) {
+void List::DynamicIntArray::From(const DynamicIntArray& other) {
     assert(other.mCapacity > 0 && "cannot copy empty array");
 
     // remove old data, if any
@@ -100,7 +100,7 @@ void list::DynamicIntArray::From(const DynamicIntArray& other) {
     this->InitUninitializedData();
 }
 
-bool list::DynamicIntArray::Resize(int newCapacity) {
+bool List::DynamicIntArray::Resize(int newCapacity) {
     assert(newCapacity > 0 && "cannot honor non-positive capacity");
 
     std::cout << "Resizing from " << this->mCapacity << " to " << newCapacity
@@ -134,7 +134,7 @@ bool list::DynamicIntArray::Resize(int newCapacity) {
     return true;
 }
 
-void list::DynamicIntArray::InitUninitializedData() {
+void List::DynamicIntArray::InitUninitializedData() {
     if (this->mData != nullptr && this->mCapacity > this->mSize) {
         // initialize any uninitialized data within the capacity
         for (int i = this->mSize; i < this->mCapacity; i++) {
@@ -143,7 +143,7 @@ void list::DynamicIntArray::InitUninitializedData() {
     }
 }
 
-bool list::DynamicIntArray::Append(int data) {
+bool List::DynamicIntArray::Append(int data) {
     std::cout << "Appending " << data << '\n';
 
     if (this->mSize + 1 > this->mCapacity) {
@@ -158,7 +158,7 @@ bool list::DynamicIntArray::Append(int data) {
     return true;
 }
 
-void list::DynamicIntArray::Clear() {
+void List::DynamicIntArray::Clear() {
     std::cout << "Clearing Array\n";
 
     if (this->mSize <= 0) {
@@ -176,7 +176,7 @@ void list::DynamicIntArray::Clear() {
     }
 }
 
-void list::DynamicIntArray::Reverse() {
+void List::DynamicIntArray::Reverse() {
     // alternatively, create a new array of same size
     // iterate i = this->mSize; i <= 0; i--; and set
     // members of the new array to effectievly reverse

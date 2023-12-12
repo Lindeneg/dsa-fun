@@ -5,7 +5,7 @@
 #include <ostream>
 
 template <typename T>
-list::LinkedList<T>::LinkedList(const LinkedList& other)
+List::LinkedList<T>::LinkedList(const LinkedList& other)
     : mSize(0), mHead(nullptr) {
     std::cout << "Copy Constructor Called\n";
 
@@ -13,7 +13,7 @@ list::LinkedList<T>::LinkedList(const LinkedList& other)
 }
 
 template <typename T>
-list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
+List::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
     : mSize(0), mHead(nullptr) {
     std::cout << "Move Constructor Called" << '\n';
 
@@ -22,7 +22,7 @@ list::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
 }
 
 template <typename T>
-list::Node<T>* list::LinkedList<T>::GetNode(int index) const {
+List::SinglyNode<T>* List::LinkedList<T>::GetNode(int index) const {
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
     auto current = this->mHead;
@@ -54,7 +54,7 @@ list::Node<T>* list::LinkedList<T>::GetNode(int index) const {
  *
  * |(0)200|->|(1)50|->|(2)0| */
 template <typename T>
-bool list::LinkedList<T>::RemoveNode(int index) {
+bool List::LinkedList<T>::RemoveNode(int index) {
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
     if (this->mHead == nullptr) {
@@ -92,7 +92,7 @@ bool list::LinkedList<T>::RemoveNode(int index) {
 }
 
 template <typename T>
-void list::LinkedList<T>::Clear() {
+void List::LinkedList<T>::Clear() {
     auto current = this->mHead;
     while (current != nullptr) {
         auto tmp = current;
@@ -105,28 +105,28 @@ void list::LinkedList<T>::Clear() {
 }
 
 template <typename T>
-void list::LinkedList<T>::Append(T data) {
+void List::LinkedList<T>::Append(T data) {
     std::cout << "Appending " << data << '\n';
 
-    const auto newNode = new Node<T>();
-    newNode->data = data;
-    newNode->next = nullptr;
+    const auto newSinglyNode = new SinglyNode<T>();
+    newSinglyNode->data = data;
+    newSinglyNode->next = nullptr;
 
     // if no head is set, set new node as head
     if (this->mHead == nullptr) {
-        newNode->next = this->mHead;
-        this->mHead = newNode;
+        newSinglyNode->next = this->mHead;
+        this->mHead = newSinglyNode;
         ++this->mSize;
         return;
     }
 
-    // find last node in list
+    // find last node in List
     auto tmp = this->mHead;
     while (tmp->next != nullptr) {
         tmp = tmp->next;
     }
-    // set newNode as last node
-    tmp->next = newNode;
+    // set newSinglyNode as last node
+    tmp->next = newSinglyNode;
     ++this->mSize;
 }
 
@@ -146,25 +146,25 @@ void list::LinkedList<T>::Append(T data) {
  *
  * Suppoze n=2, then the above structure should result in:
  *
- * |(0)100|->|(1)200|->|(2)*newNode|->|(3)50|->|(4)0|
+ * |(0)100|->|(1)200|->|(2)*newSinglyNode|->|(3)50|->|(4)0|
  *
  * If index=0, then we'd have to change the head.
- * That means newNode->next=oldHead;head=newNode, or:
+ * That means newSinglyNode->next=oldHead;head=newSinglyNode, or:
  *
  * |(0)*n|->|(1)100|->|(2)200|->|(3)50|->|(4)0| */
 template <typename T>
-void list::LinkedList<T>::InsertAt(T data, int index) {
+void List::LinkedList<T>::InsertAt(T data, int index) {
     std::cout << "Inserting " << data << " at idx " << index << '\n';
 
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
-    const auto newNode = new Node<T>();
-    newNode->data = data;
-    newNode->next = nullptr;
+    const auto newSinglyNode = new SinglyNode<T>();
+    newSinglyNode->data = data;
+    newSinglyNode->next = nullptr;
 
     if (index == 0 || this->mHead == nullptr) {
-        newNode->next = this->mHead;
-        this->mHead = newNode;
+        newSinglyNode->next = this->mHead;
+        this->mHead = newSinglyNode;
         ++this->mSize;
         return;
     }
@@ -176,8 +176,8 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
         }
         current = current->next;
     }
-    newNode->next = current->next;
-    current->next = newNode;
+    newSinglyNode->next = current->next;
+    current->next = newSinglyNode;
     ++this->mSize;
 }
 
@@ -194,13 +194,13 @@ void list::LinkedList<T>::InsertAt(T data, int index) {
  * In the above structure that would mean n0 would
  * point to nullptr. n1 would point to n0 and so on. */
 template <typename T>
-void list::LinkedList<T>::Reverse() {
+void List::LinkedList<T>::Reverse() {
     if (this->mHead == nullptr || this->mSize <= 1) {
         return;
     }
 
     auto current = this->mHead;
-    Node<T>* prev = nullptr;
+    SinglyNode<T>* prev = nullptr;
 
     while (current != nullptr) {
         // dont loose ref to next
@@ -215,7 +215,7 @@ void list::LinkedList<T>::Reverse() {
 }
 
 template <typename T>
-void list::LinkedList<T>::From(const LinkedList& other) {
+void List::LinkedList<T>::From(const LinkedList& other) {
     // if source is empty, return
     if (other.mHead == nullptr) {
         return;
@@ -226,10 +226,10 @@ void list::LinkedList<T>::From(const LinkedList& other) {
         this->Clear();
     }
 
-    // traverse the source list
+    // traverse the source List
     auto current = other.mHead;
     while (current->next != nullptr) {
-        // append to dest list
+        // append to dest List
         this->Append(current->data);
         current = current->next;
     }
@@ -238,7 +238,7 @@ void list::LinkedList<T>::From(const LinkedList& other) {
 }
 
 template <typename T>
-void list::LinkedList<T>::Free(Node<T>* node) {
+void List::LinkedList<T>::Free(SinglyNode<T>* node) {
     assert(node != nullptr && "cannot free nullptr");
     assert(this->mSize > 0 && "cannot free when size is non-positive");
 
@@ -249,7 +249,7 @@ void list::LinkedList<T>::Free(Node<T>* node) {
 }
 
 template <typename T>
-list::LinkedList<T>& list::LinkedList<T>::operator=(const LinkedList& other) {
+List::LinkedList<T>& List::LinkedList<T>::operator=(const LinkedList& other) {
     std::cout << "Copy Assignment Operator called\n";
 
     if (this == &other) {
@@ -263,7 +263,7 @@ list::LinkedList<T>& list::LinkedList<T>::operator=(const LinkedList& other) {
 }
 
 template <typename T>
-list::LinkedList<T>& list::LinkedList<T>::operator=(
+List::LinkedList<T>& List::LinkedList<T>::operator=(
     LinkedList&& other) noexcept {
     std::cout << "Move Assignment Operator called\n";
 
@@ -279,7 +279,7 @@ list::LinkedList<T>& list::LinkedList<T>::operator=(
 }
 
 template <typename T>
-list::LinkedList<T>::~LinkedList<T>() {
+List::LinkedList<T>::~LinkedList<T>() {
     std::cout << "Destructor Called size " << this->mSize << '\n';
 
     if (this->mHead != nullptr) {
@@ -287,5 +287,5 @@ list::LinkedList<T>::~LinkedList<T>() {
     }
 }
 
-template class list::LinkedList<int>;
-template class list::LinkedList<double>;
+template class List::LinkedList<int>;
+template class List::LinkedList<double>;

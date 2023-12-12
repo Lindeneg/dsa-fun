@@ -1,13 +1,12 @@
-#ifndef LIST_DYNAMICINTARRAYDEMO_H_
-#define LIST_DYNAMICINTARRAYDEMO_H_
+#pragma once
 
 #include <iostream>
 
-#include "DynamicIntArray.h"
+#include "../List/DynamicIntArray.h"
 
-namespace list {
-inline void RunDynamicArray() {
-    DynamicIntArray arr{};
+namespace Demo {
+inline void runDynamicArray() {
+    List::DynamicIntArray arr{};
 
     std::cout << "Arr1: " << arr;
 
@@ -35,7 +34,7 @@ inline void RunDynamicArray() {
     std::cout << "Arr1: " << arr << "Arr2: " << arr2;
 
     std::cout << "\nCopy Assigning arr1 into empty arr3\n";
-    DynamicIntArray arr3;
+    List::DynamicIntArray arr3;
     arr3 = arr;
     std::cout << "Arr3: " << arr3;
 
@@ -54,6 +53,5 @@ inline void RunDynamicArray() {
 
     std::cout << "Ending Demo\n";
 }
-}  // namespace list
+}  // namespace Demo
 
-#endif /* LIST_DYNAMICINTARRAYDEMO_H_ */

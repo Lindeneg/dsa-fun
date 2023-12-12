@@ -1,9 +1,8 @@
-#ifndef LIST_DYNAMICINTARRAY_H_
-#define LIST_DYNAMICINTARRAY_H_
+#pragma once
 
 #include <ostream>
 
-namespace list {
+namespace List {
 
 class DynamicIntArray {
    private:
@@ -52,6 +51,5 @@ class DynamicIntArray {
     void Reverse();
     void Clear();
 };
-}  // namespace list
+}  // namespace List
 
-#endif /* LIST_DYNAMICINTARRAY_H_ */

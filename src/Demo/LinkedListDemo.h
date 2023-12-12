@@ -1,14 +1,14 @@
-#ifndef LIST_LINKEDLISTDEMO_H_
-#define LIST_LINKEDLISTDEMO_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
 
-#include "LinkedList.h"
+#include "../List/LinkedList.h"
+#define STACK_STACK_H_
 
-namespace list {
-inline void RunLinkedList() {
-    LinkedList<int> list1{};
+namespace Demo {
+inline void runLinkedList() {
+    List::LinkedList<int> list1{};
 
     list1.Append(2);
     list1.Append(4);
@@ -19,7 +19,7 @@ inline void RunLinkedList() {
     std::cout << "List1: " << list1;
 
     std::cout << "\nCoping List1 into List2\n";
-    LinkedList<int> list2{list1};
+    List::LinkedList<int> list2{list1};
 
     std::cout << "List2: " << list2;
 
@@ -31,7 +31,7 @@ inline void RunLinkedList() {
     std::cout << "List2: " << list2;
 
     std::cout << "\nCreate empty List3:\n";
-    LinkedList<int> list3{};
+    List::LinkedList<int> list3{};
 
     std::cout << "List3: " << list3;
 
@@ -57,15 +57,14 @@ inline void RunLinkedList() {
     std::cout << "After:  " << list2;
 
     std::cout << "\nTesting move constructor\n";
-    std::vector<LinkedList<double>> vec;
-    vec.push_back(LinkedList<double>{});
+    std::vector<List::LinkedList<double>> vec;
+    vec.push_back(List::LinkedList<double>{});
 
     std::cout << "\nTesting move assignment operator\n";
-    LinkedList<int> test{};
+    List::LinkedList<int> test{};
     test = std::move(list3);
 
     std::cout << '\n';
 }
-}  // namespace list
+}  // namespace Demo
 
-#endif /* LIST_LINKEDLISTDEMO_H_ */

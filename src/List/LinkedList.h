@@ -1,23 +1,22 @@
-#ifndef LIST_LINKEDLIST_H_
-#define LIST_LINKEDLIST_H_
+#pragma once
 
 #include <ostream>
 
-namespace list {
+namespace List {
 template <typename T>
-struct Node {
+struct SinglyNode {
     T data;
-    Node* next;
+    SinglyNode* next;
 };
 
 template <typename T>
 class LinkedList {
    private:
     int mSize;
-    Node<T>* mHead;
+    SinglyNode<T>* mHead;
 
     void From(const LinkedList& linkedList);
-    void Free(Node<T>* node);
+    void Free(SinglyNode<T>* node);
 
    public:
     LinkedList() : mSize(0), mHead(nullptr) {}
@@ -52,13 +51,12 @@ class LinkedList {
 
     inline int GetSize() const { return this->mSize; }
 
-    Node<T>* GetNode(int index) const;
+    SinglyNode<T>* GetNode(int index) const;
     bool RemoveNode(int index);
     void Append(T data);
     void InsertAt(T data, int index);
     void Reverse();
     void Clear();
 };
-}  // namespace list
+}  // namespace List
 
-#endif /* LIST_LINKEDLIST_H_ */

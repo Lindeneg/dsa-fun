@@ -1,13 +1,12 @@
-#ifndef LIST_DOUBLYLINKEDLISTDEMO_H_
-#define LIST_DOUBLYLINKEDLISTDEMO_H_
+#pragma once
 
 #include <iostream>
 
-#include "DoublyLinkedList.h"
+#include "../List/DoublyLinkedList.h"
 
-namespace list {
-inline void RunDoublyLinkedList() {
-    DoublyLinkedList ll;
+namespace Demo {
+inline void runDoublyLinkedList() {
+    List::DoublyLinkedList ll;
     std::cout << "List1: " << ll;
 
     ll.Append(9);
@@ -45,6 +44,5 @@ inline void RunDoublyLinkedList() {
 
     std::cout << '\n';
 }
-}  // namespace list
+}  // namespace Demo
 
-#endif /* LIST_DOUBLYLINKEDLISTDEMO_H_ */

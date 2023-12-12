@@ -1,9 +1,8 @@
-#ifndef STACK_STACK_H_
-#define STACK_STACK_H_
+#pragma once
 
 #include <iostream>
 
-namespace list {
+namespace List {
 
 struct StackNode {
     int data;
@@ -54,6 +53,5 @@ class Stack {
     void Clear();
     int Pop();
 };
-}  // namespace list
+}  // namespace List
 
-#endif /* STACK_STACK_H_ */

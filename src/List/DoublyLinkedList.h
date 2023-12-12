@@ -1,22 +1,21 @@
-#ifndef LIST_DOUBLYLINKEDLIST_H_
-#define LIST_DOUBLYLINKEDLIST_H_
+#pragma once
 
 #include <ostream>
 
-namespace list {
-struct Node2 {
+namespace List {
+struct DoublyNode {
     int data;
-    Node2* next;
-    Node2* prev;
+    DoublyNode* next;
+    DoublyNode* prev;
 };
 
 class DoublyLinkedList {
    private:
-    Node2* mHead;
+    DoublyNode* mHead;
     int mSize;
 
     void From(const DoublyLinkedList& other);
-    void Free(Node2* node);
+    void Free(DoublyNode* node);
 
    public:
     DoublyLinkedList() : mHead(nullptr), mSize(0) {}
@@ -52,6 +51,5 @@ class DoublyLinkedList {
     void Reverse();
     void Clear();
 };
-}  // namespace list
+}  // namespace List
 
-#endif /* LIST_DOUBLYLINKEDLIST_H_ */

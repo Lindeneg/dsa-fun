@@ -1,13 +1,12 @@
-#ifndef LIST_STACKDEMO_H_
-#define LIST_STACKDEMO_H_
+#pragma once
 
 #include <iostream>
 
-#include "Stack.h"
+#include "../List/Stack.h"
 
-namespace list {
-inline void RunStack() {
-    Stack s;
+namespace Demo {
+inline void runStack() {
+    List::Stack s;
 
     std::cout << s;
 
@@ -20,7 +19,7 @@ inline void RunStack() {
 
     std::cout << s;
 
-    Stack ss = s;
+    List::Stack ss = s;
     ss.Reverse();
 
     std::cout << s;
@@ -32,6 +31,5 @@ inline void RunStack() {
 
     std::cout << '\n';
 }
-}  // namespace list
+}  // namespace Demo
 
-#endif /* LIST_STACKDEMO_H_ */

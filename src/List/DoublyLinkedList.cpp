@@ -3,14 +3,14 @@
 #include <cassert>
 #include <iostream>
 
-list::DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& other)
+List::DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& other)
     : mHead(nullptr), mSize(0) {
     std::cout << "Copy constructor called!\n";
 
     this->From(other);
 }
 
-list::DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) noexcept
+List::DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) noexcept
     : mHead(nullptr), mSize(0) {
     std::cout << "Move Constructor called!\n";
 
@@ -18,7 +18,7 @@ list::DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) noexcept
     other.Clear();
 }
 
-list::DoublyLinkedList::~DoublyLinkedList() {
+List::DoublyLinkedList::~DoublyLinkedList() {
     std::cout << "Destructor called size " << this->mSize << '\n';
 
     if (this->mHead == nullptr) {
@@ -28,7 +28,7 @@ list::DoublyLinkedList::~DoublyLinkedList() {
     this->Clear();
 }
 
-list::DoublyLinkedList& list::DoublyLinkedList::operator=(
+List::DoublyLinkedList& List::DoublyLinkedList::operator=(
     const DoublyLinkedList& other) {
     std::cout << "Copy Assignment Operator called\n";
 
@@ -42,7 +42,7 @@ list::DoublyLinkedList& list::DoublyLinkedList::operator=(
     return *this;
 }
 
-list::DoublyLinkedList& list::DoublyLinkedList::operator=(
+List::DoublyLinkedList& List::DoublyLinkedList::operator=(
     DoublyLinkedList&& other) noexcept {
     std::cout << "Move Assignment Operator called\n";
 
@@ -57,7 +57,7 @@ list::DoublyLinkedList& list::DoublyLinkedList::operator=(
     return *this;
 }
 
-void list::DoublyLinkedList::From(const DoublyLinkedList& other) {
+void List::DoublyLinkedList::From(const DoublyLinkedList& other) {
     // if source is empty, return
     if (other.mHead == nullptr) {
         return;
@@ -68,10 +68,10 @@ void list::DoublyLinkedList::From(const DoublyLinkedList& other) {
         this->Clear();
     }
 
-    // traverse the source list
+    // traverse the source List
     auto current = other.mHead;
     while (current->next != nullptr) {
-        // append to dest list
+        // append to dest List
         this->Append(current->data);
         current = current->next;
     }
@@ -79,10 +79,10 @@ void list::DoublyLinkedList::From(const DoublyLinkedList& other) {
     this->Append(current->data);
 }
 
-void list::DoublyLinkedList::Append(int data) {
+void List::DoublyLinkedList::Append(int data) {
     std::cout << "Appending " << data << '\n';
 
-    auto newNode = new Node2();
+    auto newNode = new DoublyNode();
     newNode->data = data;
     newNode->next = nullptr;
     newNode->prev = nullptr;
@@ -103,11 +103,11 @@ void list::DoublyLinkedList::Append(int data) {
     ++this->mSize;
 }
 
-void list::DoublyLinkedList::InsertAt(int data, int index) {
+void List::DoublyLinkedList::InsertAt(int data, int index) {
     std::cout << "Inserting " << data << " at index " << index << '\n';
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
-    auto newNode = new Node2();
+    auto newNode = new DoublyNode();
     newNode->data = data;
     newNode->next = nullptr;
     newNode->prev = nullptr;
@@ -134,7 +134,7 @@ void list::DoublyLinkedList::InsertAt(int data, int index) {
     ++this->mSize;
 }
 
-void list::DoublyLinkedList::RemoveNode(int index) {
+void List::DoublyLinkedList::RemoveNode(int index) {
     std::cout << "Removing node at index " << index << '\n';
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
@@ -161,7 +161,7 @@ void list::DoublyLinkedList::RemoveNode(int index) {
     this->Free(current);
 }
 
-int list::DoublyLinkedList::GetNode(int index) const {
+int List::DoublyLinkedList::GetNode(int index) const {
     std::cout << "Get node at index " << index;
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
@@ -177,12 +177,12 @@ int list::DoublyLinkedList::GetNode(int index) const {
     return current->data;
 }
 
-void list::DoublyLinkedList::Reverse() {
+void List::DoublyLinkedList::Reverse() {
     if (this->mHead == nullptr || this->mSize <= 1) {
         return;
     }
 
-    std::cout << "Reversing list\n";
+    std::cout << "Reversing List\n";
 
     auto current = this->mHead;
     while (current->next != nullptr) {
@@ -196,7 +196,7 @@ void list::DoublyLinkedList::Reverse() {
     current->prev = nullptr;
 }
 
-void list::DoublyLinkedList::Clear() {
+void List::DoublyLinkedList::Clear() {
     auto current = this->mHead;
     while (current != nullptr) {
         auto tmp = current;
@@ -206,7 +206,7 @@ void list::DoublyLinkedList::Clear() {
     this->mHead = nullptr;
 }
 
-void list::DoublyLinkedList::Free(Node2* node) {
+void List::DoublyLinkedList::Free(DoublyNode* node) {
     assert(node != nullptr && "trying to free nullptr");
     assert(this->mSize > 0 && "cannot free when size is non-positive");
 
