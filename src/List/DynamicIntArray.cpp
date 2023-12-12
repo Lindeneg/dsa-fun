@@ -89,7 +89,7 @@ void List::DynamicIntArray::From(const DynamicIntArray& other) {
         this->mCapacity = 0;
     }
 
-    this->mData = new int[other.mCapacity];
+    this->mData = new int[static_cast<std::size_t>(other.mCapacity)];
     this->mSize = other.mSize;
     this->mCapacity = other.mCapacity;
 
