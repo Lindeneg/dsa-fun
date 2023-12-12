@@ -6,7 +6,7 @@ set(CL_GNU_DEBUG_FLAGS "-static-libstdc++ -ggdb -pedantic-errors -Wall -Weffc++ 
 set(CL_GNU_RELEASE_FLAGS "-static-libstdc++ -O2 -s -DNDEBUG")
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    if ($ENV{CL_BUILD_MODE} STREQUAL "RELEASE")
+    if ("$ENV{CL_BUILD_MODE}" STREQUAL "RELEASE")
         set(CMAKE_CXX_FLAGS ${CL_GNU_RELEASE_FLAGS})
     else()
         set(CMAKE_CXX_FLAGS ${CL_GNU_DEBUG_FLAGS})
