@@ -1,12 +1,14 @@
 #include <iostream>
 
-#include "Demo/DynamicIntArrayDemo.h"
+#include "Demo/BSTDemo.h"
 
 int main() {
     // Problem::ReverseString();
     // Problem::IsBalancedParenthesis();
+    // Demo::runDynamicArray();
+    // Demo::runQueue();
 
-    Demo::runDynamicArray();
+    Demo::runBST();
 
     std::cout << "Ending main\n";
     return 0;
