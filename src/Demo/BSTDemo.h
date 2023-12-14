@@ -23,16 +23,21 @@ inline void runBST() {
     bst.Insert(5);
     bst.Insert(13);
     bst.Insert(11);
-    // bst.Print();
 
-    std::cout << "Level Order Traversel" << '\n';
-    bst.LevelOrderTraversel();
+    std::cout << bst << '\n';
+
+    Graph::BST bst2{bst};
+
+    // std::cout << bst2 << '\n';
 
     std::cout << "Min: " << bst.FindMin() << '\n';
     std::cout << "Max: " << bst.FindMax() << '\n';
     std::cout << "Height: " << bst.GetHeight() << '\n';
     std::cout << "Searching 19: " << bst.Search(19) << '\n';
     std::cout << "Searching 42: " << bst.Search(42) << '\n';
+
+    std::cout << "Breadth First Search\n";
+    bst.BreadthFirstSearch();
 
     std::cout << '\n';
 }

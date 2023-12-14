@@ -3,35 +3,82 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <ostream>
+
+#include "../List/Queue.h"
+
+Graph::BST::BST(const BST& other) : mRoot(nullptr) {
+    std::cout << "BST Copy Constructor called!\n";
+
+    this->Clear(this->mRoot);
+    this->From(other.mRoot);
+}
+
+Graph::BST::BST(BST&& other) noexcept : mRoot(nullptr) {
+    std::cout << "BST Move Constructor called!\n";
+    this->From(other.mRoot);
+    other.Clear();
+}
 
 Graph::BST::~BST() {
-    std::cout << "Destructor called!\n";
+    std::cout << "BST Destructor called!\n";
 
     this->Clear(this->mRoot);
     this->mRoot = nullptr;
 }
 
-void Graph::BST::Print(BSTNode* root, int offset) const {
+Graph::BST& Graph::BST::operator=(const BST& other) {
+    std::cout << "BST Copy Assignment Operator called\n";
+
+    if (this == &other) {
+        return *this;
+    }
+
+    this->Clear();
+    this->From(other.mRoot);
+
+    return *this;
+}
+
+Graph::BST& Graph::BST::operator=(BST&& other) noexcept {
+    std::cout << "BST Move Assignment Operator called\n";
+
+    if (this == &other) {
+        return *this;
+    }
+
+    this->Clear();
+    this->From(other.mRoot);
+    other.Clear();
+
+    return *this;
+}
+
+void Graph::BST::From(const BSTNode* other) {
+    if (other == nullptr) {
+        return;
+    }
+
+    this->Insert(other->data);
+    this->From(other->left);
+    this->From(other->right);
+}
+
+void Graph::BST::Print(std::ostream& os, BSTNode* parent, BSTNode* root,
+                       int depth, Direction d) const {
     if (root == nullptr) {
         return;
     }
 
-    offset += printInrement;
-
-    this->Print(root->right, offset);
-
-    for (int i = printInrement; i < offset; i++) {
-        std::cout << ' ';
+    os << "data: " << root->data << static_cast<char>(d);
+    if (parent != nullptr) {
+        os << " parent: " << parent->data;
     }
+    os << " depth: " << depth << '\n';
 
-    bool isRoot = offset == printInrement;
-    if (isRoot) {
-        std::cout << "(r) ";
-    }
-
-    std::cout << root->data << '\n';
-
-    this->Print(root->left, offset);
+    ++depth;
+    this->Print(os, root, root->left, depth, Left);
+    this->Print(os, root, root->right, depth, Right);
 }
 
 int Graph::BST::GetHeight(BSTNode* root) const {
@@ -42,6 +89,7 @@ int Graph::BST::GetHeight(BSTNode* root) const {
     auto leftHeight = this->GetHeight(root->left);
     auto rightHeight = this->GetHeight(root->right);
 
+    // +1 to account for root node
     return std::max(leftHeight, rightHeight) + 1;
 }
 
@@ -111,4 +159,30 @@ bool Graph::BST::Search(BSTNode* root, int data) const {
         return this->Search(root->left, data);
     }
     return this->Search(root->right, data);
+}
+
+/* This BFS implementation uses a Queue to keep track
+ * of parent nodes while traversing their children */
+void Graph::BST::BreadthFirstSearch(BSTNode* root) const {
+    if (root == nullptr) {
+        return;
+    }
+
+    List::Queue<BSTNode*> q{};
+    q.Enqueue(root);
+
+    while (!q.IsEmpty()) {
+        auto current = q.Front();
+
+        if (current->left != nullptr) {
+            q.Enqueue(current->left);
+        }
+
+        if (current->right != nullptr) {
+            q.Enqueue(current->right);
+        }
+        std::cout << "->" << q.Dequeue()->data;
+    }
+
+    std::cout << '\n';
 }
