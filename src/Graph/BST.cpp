@@ -186,13 +186,29 @@ void Graph::BST::BreadthFirstSearch(const BSTNode* root) const {
     std::cout << '\n';
 }
 
-void Graph::BST::DepthFirstSearch(const BSTNode* root) const {
+void Graph::BST::DFSPreOrder(const BSTNode* root) const {
     if (root == nullptr) {
         return;
     }
-
     std::cout << "->" << root->data;
+    this->DFSPreOrder(root->left);
+    this->DFSPreOrder(root->right);
+}
 
-    this->DepthFirstSearch(root->left);
-    this->DepthFirstSearch(root->right);
+void Graph::BST::DFSInOrder(const BSTNode* root) const {
+    if (root == nullptr) {
+        return;
+    }
+    this->DFSInOrder(root->left);
+    std::cout << "->" << root->data;
+    this->DFSInOrder(root->right);
+}
+
+void Graph::BST::DFSPostOrder(const BSTNode* root) const {
+    if (root == nullptr) {
+        return;
+    }
+    this->DFSPostOrder(root->left);
+    this->DFSPostOrder(root->right);
+    std::cout << "->" << root->data;
 }

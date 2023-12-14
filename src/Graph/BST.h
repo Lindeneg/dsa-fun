@@ -29,7 +29,9 @@ class BST {
     bool Search(BSTNode* root, int data) const;
     int GetHeight(BSTNode* root) const;
     void BreadthFirstSearch(const BSTNode* root) const;
-    void DepthFirstSearch(const BSTNode* root) const;
+    void DFSPreOrder(const BSTNode* root) const;
+    void DFSInOrder(const BSTNode* root) const;
+    void DFSPostOrder(const BSTNode* root) const;
     void From(const BSTNode* root);
     void Clear(BSTNode* root);
     void Print(std::ostream& os, BSTNode* parent, BSTNode* root, int depth,
@@ -72,6 +74,8 @@ class BST {
     /* Visits all nodes at a given depth before going on to next depth */
     void BreadthFirstSearch() const { this->BreadthFirstSearch(this->mRoot); }
     /* Vists all nodes to maximum depth before moving on to next node */
-    void DepthFirstSearch() const { this->DepthFirstSearch(this->mRoot); }
+    void DFSPreOrder() const { this->DFSPreOrder(this->mRoot); }
+    void DFSInOrder() const { this->DFSInOrder(this->mRoot); }
+    void DFSPostOrder() const { this->DFSPostOrder(this->mRoot); }
 };
 }  // namespace Graph

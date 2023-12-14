@@ -39,8 +39,12 @@ inline void runBST() {
     std::cout << "Breadth First Search\n";
     bst.BreadthFirstSearch();
 
-    std::cout << "Depth First Search\n";
-    bst.DepthFirstSearch();
+    std::cout << "DFS Pre Order\n";
+    bst.DFSPreOrder();
+    std::cout << "\nDFS In Order\n";
+    bst.DFSInOrder();
+    std::cout << "\nDFS Post Order\n";
+    bst.DFSPostOrder();
 
     std::cout << '\n';
 }
