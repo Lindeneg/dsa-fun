@@ -241,7 +241,7 @@ void List::LinkedList<T>::Free(SinglyNode<T>* node) {
     assert(node != nullptr && "cannot free nullptr");
     assert(this->mSize > 0 && "cannot free when size is non-positive");
 
-    std::cout << "Freeing " << node->data << '\n';
+    std::cout << "LinkedList Freeing " << node->data << '\n';
 
     delete node;
     --this->mSize;

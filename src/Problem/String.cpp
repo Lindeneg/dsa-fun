@@ -45,7 +45,7 @@ static void initCharMapIfEmpty() {
 static bool checkParenthesisBalance(const std::string& s) {
     initCharMapIfEmpty();
 
-    List::Stack<char> charStack;
+    List::Stack<char> charStack{};
     auto length = static_cast<int>(s.length());
 
     for (int i = 0; i < length; i++) {
