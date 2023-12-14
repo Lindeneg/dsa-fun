@@ -39,6 +39,9 @@ inline void runBST() {
     std::cout << "Breadth First Search\n";
     bst.BreadthFirstSearch();
 
+    std::cout << "Depth First Search\n";
+    bst.DepthFirstSearch();
+
     std::cout << '\n';
 }
 }  // namespace Demo

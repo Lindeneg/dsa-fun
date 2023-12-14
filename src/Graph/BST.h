@@ -28,7 +28,8 @@ class BST {
     BSTNode* Insert(BSTNode* root, int data);
     bool Search(BSTNode* root, int data) const;
     int GetHeight(BSTNode* root) const;
-    void BreadthFirstSearch(BSTNode* root) const;
+    void BreadthFirstSearch(const BSTNode* root) const;
+    void DepthFirstSearch(const BSTNode* root) const;
     void From(const BSTNode* root);
     void Clear(BSTNode* root);
     void Print(std::ostream& os, BSTNode* parent, BSTNode* root, int depth,
@@ -56,7 +57,13 @@ class BST {
     inline bool Search(int data) const {
         return this->Search(this->mRoot, data);
     }
-    inline void Clear() { this->Clear(this->mRoot); }
+    inline void Clear() {
+        this->Clear(this->mRoot);
+        if (this->mRoot != nullptr) {
+            delete this->mRoot;
+        }
+        this->mRoot = nullptr;
+    }
     inline int GetHeight() const { return this->GetHeight(this->mRoot); }
     /* Min value will always reside as a leaf node in left-subtree. */
     int FindMin() const;
@@ -64,5 +71,7 @@ class BST {
     int FindMax() const;
     /* Visits all nodes at a given depth before going on to next depth */
     void BreadthFirstSearch() const { this->BreadthFirstSearch(this->mRoot); }
+    /* Vists all nodes to maximum depth before moving on to next node */
+    void DepthFirstSearch() const { this->DepthFirstSearch(this->mRoot); }
 };
 }  // namespace Graph

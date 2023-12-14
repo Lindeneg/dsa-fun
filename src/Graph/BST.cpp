@@ -24,7 +24,6 @@ Graph::BST::~BST() {
     std::cout << "BST Destructor called!\n";
 
     this->Clear(this->mRoot);
-    this->mRoot = nullptr;
 }
 
 Graph::BST& Graph::BST::operator=(const BST& other) {
@@ -163,12 +162,12 @@ bool Graph::BST::Search(BSTNode* root, int data) const {
 
 /* This BFS implementation uses a Queue to keep track
  * of parent nodes while traversing their children */
-void Graph::BST::BreadthFirstSearch(BSTNode* root) const {
+void Graph::BST::BreadthFirstSearch(const BSTNode* root) const {
     if (root == nullptr) {
         return;
     }
 
-    List::Queue<BSTNode*> q{};
+    List::Queue<const BSTNode*> q{};
     q.Enqueue(root);
 
     while (!q.IsEmpty()) {
@@ -185,4 +184,15 @@ void Graph::BST::BreadthFirstSearch(BSTNode* root) const {
     }
 
     std::cout << '\n';
+}
+
+void Graph::BST::DepthFirstSearch(const BSTNode* root) const {
+    if (root == nullptr) {
+        return;
+    }
+
+    std::cout << "->" << root->data;
+
+    this->DepthFirstSearch(root->left);
+    this->DepthFirstSearch(root->right);
 }
