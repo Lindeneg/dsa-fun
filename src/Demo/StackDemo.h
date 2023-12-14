@@ -6,10 +6,13 @@
 
 namespace Demo {
 inline void runStack() {
-    List::Stack s;
+    std::cout << "Stack Playground!\n";
+
+    List::Stack<int> s{};
 
     std::cout << s;
 
+    std::cout << "Pushing data\n";
     s.Push(2);
     s.Push(5);
     s.Push(1);
@@ -19,14 +22,18 @@ inline void runStack() {
 
     std::cout << s;
 
-    List::Stack ss = s;
+    std::cout << "Reversing stack\n";
+    List::Stack<int> ss = s;
     ss.Reverse();
 
     std::cout << s;
     std::cout << ss;
 
+    std::cout << "Popping top\n";
     std::cout << ss.Pop() << ss << '\n';
+    std::cout << "Popping top\n";
     std::cout << ss.Pop() << ss << '\n';
+    std::cout << "Popping top\n";
     std::cout << ss.Pop() << ss << '\n';
 
     std::cout << '\n';

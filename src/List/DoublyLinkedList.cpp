@@ -5,21 +5,22 @@
 
 List::DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& other)
     : mHead(nullptr), mSize(0) {
-    std::cout << "Copy constructor called!\n";
+    std::cout << "DoublyLinkedList Copy constructor called!\n";
 
     this->From(other);
 }
 
 List::DoublyLinkedList::DoublyLinkedList(DoublyLinkedList&& other) noexcept
     : mHead(nullptr), mSize(0) {
-    std::cout << "Move Constructor called!\n";
+    std::cout << "DoublyLinkedList Move Constructor called!\n";
 
     this->From(other);
     other.Clear();
 }
 
 List::DoublyLinkedList::~DoublyLinkedList() {
-    std::cout << "Destructor called size " << this->mSize << '\n';
+    std::cout << "DoublyLinkedList Destructor called size " << this->mSize
+              << '\n';
 
     if (this->mHead == nullptr) {
         return;
@@ -30,7 +31,7 @@ List::DoublyLinkedList::~DoublyLinkedList() {
 
 List::DoublyLinkedList& List::DoublyLinkedList::operator=(
     const DoublyLinkedList& other) {
-    std::cout << "Copy Assignment Operator called\n";
+    std::cout << "DoublyLinkedList Copy Assignment Operator called\n";
 
     if (this == &other) {
         return *this;
@@ -44,7 +45,7 @@ List::DoublyLinkedList& List::DoublyLinkedList::operator=(
 
 List::DoublyLinkedList& List::DoublyLinkedList::operator=(
     DoublyLinkedList&& other) noexcept {
-    std::cout << "Move Assignment Operator called\n";
+    std::cout << "DoublyLinkedList Move Assignment Operator called\n";
 
     if (this == &other) {
         return *this;
@@ -80,7 +81,7 @@ void List::DoublyLinkedList::From(const DoublyLinkedList& other) {
 }
 
 void List::DoublyLinkedList::Append(int data) {
-    std::cout << "Appending " << data << '\n';
+    std::cout << "DoublyLinkedList Appending " << data << '\n';
 
     auto newNode = new DoublyNode();
     newNode->data = data;
@@ -104,7 +105,8 @@ void List::DoublyLinkedList::Append(int data) {
 }
 
 void List::DoublyLinkedList::InsertAt(int data, int index) {
-    std::cout << "Inserting " << data << " at index " << index << '\n';
+    std::cout << "DoublyLinkedList Inserting " << data << " at index " << index
+              << '\n';
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
     auto newNode = new DoublyNode();
@@ -135,7 +137,7 @@ void List::DoublyLinkedList::InsertAt(int data, int index) {
 }
 
 void List::DoublyLinkedList::RemoveNode(int index) {
-    std::cout << "Removing node at index " << index << '\n';
+    std::cout << "DoublyLinkedList Removing node at index " << index << '\n';
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
     if (index == 0) {
@@ -162,7 +164,7 @@ void List::DoublyLinkedList::RemoveNode(int index) {
 }
 
 int List::DoublyLinkedList::GetNode(int index) const {
-    std::cout << "Get node at index " << index;
+    std::cout << "DoublyLinkedList Get node at index " << index;
     assert(index >= 0 && index < this->mSize && "index out of bounds");
 
     auto current = this->mHead;
@@ -182,7 +184,7 @@ void List::DoublyLinkedList::Reverse() {
         return;
     }
 
-    std::cout << "Reversing List\n";
+    std::cout << "DoublyLinkedList Reversing List\n";
 
     auto current = this->mHead;
     while (current->next != nullptr) {
@@ -210,7 +212,7 @@ void List::DoublyLinkedList::Free(DoublyNode* node) {
     assert(node != nullptr && "trying to free nullptr");
     assert(this->mSize > 0 && "cannot free when size is non-positive");
 
-    std::cout << "Freeing " << node->data << '\n';
+    std::cout << "DoublyLinkedList Freeing " << node->data << '\n';
 
     delete node;
     --this->mSize;

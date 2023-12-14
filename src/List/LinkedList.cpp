@@ -2,12 +2,11 @@
 
 #include <cassert>
 #include <iostream>
-#include <ostream>
 
 template <typename T>
 List::LinkedList<T>::LinkedList(const LinkedList& other)
     : mSize(0), mHead(nullptr) {
-    std::cout << "Copy Constructor Called\n";
+    std::cout << "LinkedList Copy Constructor Called\n";
 
     this->From(other);
 }
@@ -15,7 +14,7 @@ List::LinkedList<T>::LinkedList(const LinkedList& other)
 template <typename T>
 List::LinkedList<T>::LinkedList(LinkedList&& other) noexcept
     : mSize(0), mHead(nullptr) {
-    std::cout << "Move Constructor Called" << '\n';
+    std::cout << "LinkedList Move Constructor Called" << '\n';
 
     this->From(other);
     other.Clear();
@@ -106,7 +105,7 @@ void List::LinkedList<T>::Clear() {
 
 template <typename T>
 void List::LinkedList<T>::Append(T data) {
-    std::cout << "Appending " << data << '\n';
+    std::cout << "LinkedList Appending " << data << '\n';
 
     const auto newSinglyNode = new SinglyNode<T>();
     newSinglyNode->data = data;
@@ -154,7 +153,7 @@ void List::LinkedList<T>::Append(T data) {
  * |(0)*n|->|(1)100|->|(2)200|->|(3)50|->|(4)0| */
 template <typename T>
 void List::LinkedList<T>::InsertAt(T data, int index) {
-    std::cout << "Inserting " << data << " at idx " << index << '\n';
+    std::cout << "LinkedList Inserting " << data << " at idx " << index << '\n';
 
     assert(index >= 0 && index < this->mSize && "index is out of bounds");
 
@@ -250,7 +249,7 @@ void List::LinkedList<T>::Free(SinglyNode<T>* node) {
 
 template <typename T>
 List::LinkedList<T>& List::LinkedList<T>::operator=(const LinkedList& other) {
-    std::cout << "Copy Assignment Operator called\n";
+    std::cout << "LinkedList Copy Assignment Operator called\n";
 
     if (this == &other) {
         return *this;
@@ -280,7 +279,7 @@ List::LinkedList<T>& List::LinkedList<T>::operator=(
 
 template <typename T>
 List::LinkedList<T>::~LinkedList<T>() {
-    std::cout << "Destructor Called size " << this->mSize << '\n';
+    std::cout << "LinkedList Destructor Called size " << this->mSize << '\n';
 
     if (this->mHead != nullptr) {
         this->Clear();

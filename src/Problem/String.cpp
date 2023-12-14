@@ -1,8 +1,10 @@
 #include "String.h"
 
+#include <iostream>
 #include <map>
-#include <stack>
 #include <string>
+
+#include "../List/Stack.h"
 
 static std::map<char, char> charMap{};
 static void initCharMapIfEmpty() {
@@ -15,25 +17,50 @@ static void initCharMapIfEmpty() {
     charMap['}'] = '{';
 }
 
+/* This solution uses a stack. Push opening brackets
+ * onto stack and compare stackTop against found closing brackets.
+ *
+ * Expr: [ { } ]
+ * Stack: -> TOP
+ *
+ * 1) Find opening bracket and push to stack.
+ *
+ * Stack: [
+ *
+ * 2) Opening bracket found.
+ *
+ * Stack: [ {
+ *
+ * 3) Closing bracket found. Must be same as stackTop.
+ *
+ * Stack: [
+ *
+ * 4) Closing bracket found, must be same as stackTop
+ *
+ * Stack:
+ *
+ * 5) Expression exhausted. If stack is empty, expression
+ *    is balanced, else the brackets in stack are not closed.
+ * */
 static bool checkParenthesisBalance(const std::string& s) {
     initCharMapIfEmpty();
 
-    std::stack<char> charStack;
+    List::Stack<char> charStack;
     auto length = static_cast<int>(s.length());
 
     for (int i = 0; i < length; i++) {
         auto currentChar = s[static_cast<std::size_t>(i)];
-        if (charStack.empty()) {
-            charStack.push(currentChar);
+        if (charStack.IsEmpty()) {
+            charStack.Push(currentChar);
         } else if ((charMap[currentChar] &&
-                    charStack.top() == charMap[currentChar])) {
-            charStack.pop();
+                    charStack.Top() == charMap[currentChar])) {
+            charStack.Pop();
         } else {
-            charStack.push(currentChar);
+            charStack.Push(currentChar);
         }
     }
 
-    if (charStack.empty()) {
+    if (charStack.IsEmpty()) {
         std::cout << s << " is BALANCED\n";
         return true;
     }
@@ -42,6 +69,8 @@ static bool checkParenthesisBalance(const std::string& s) {
     return false;
 }
 
+// find str length and iterate over indices from
+// length - 1 up until zero inclusive.
 void Problem::ReverseString() {
     const std::string s{"Hello There"};
 

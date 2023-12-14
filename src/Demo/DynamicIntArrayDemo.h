@@ -6,6 +6,8 @@
 
 namespace Demo {
 inline void runDynamicArray() {
+    std::cout << "DynamicIntArray Playground!\n";
+
     List::DynamicIntArray arr{};
 
     std::cout << "Arr1: " << arr;
@@ -51,7 +53,7 @@ inline void runDynamicArray() {
     arr2.Reverse();
     std::cout << "After: " << arr2;
 
-    std::cout << "Ending Demo\n";
+    std::cout << '\n';
 }
 }  // namespace Demo
 

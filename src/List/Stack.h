@@ -4,18 +4,20 @@
 
 namespace List {
 
+template <typename T>
 struct StackNode {
-    int data;
+    T data;
     StackNode* next;
 };
 
+template <typename T>
 class Stack {
    private:
-    StackNode* mTop;
+    StackNode<T>* mTop;
 
     // seems useful when copying
-    void Prepend(int data);
-    StackNode* CreateNode(int data);
+    void Prepend(T data);
+    StackNode<T>* CreateNode(T data);
     void From(const Stack& other);
 
    public:
@@ -49,9 +51,10 @@ class Stack {
     inline bool IsEmpty() const { return this->mTop == nullptr; }
 
     void Reverse();
-    void Push(int data);
+    void Push(T data);
     void Clear();
-    int Pop();
+    T Top() const;
+    T Pop();
 };
 }  // namespace List
 

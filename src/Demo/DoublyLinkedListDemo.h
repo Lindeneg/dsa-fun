@@ -1,4 +1,4 @@
-#pragma once
+#pragma oncedemo
 
 #include <iostream>
 
@@ -6,7 +6,9 @@
 
 namespace Demo {
 inline void runDoublyLinkedList() {
-    List::DoublyLinkedList ll;
+    std::cout << "DoublyLinkedList Playground!\n";
+
+    List::DoublyLinkedList ll{};
     std::cout << "List1: " << ll;
 
     ll.Append(9);

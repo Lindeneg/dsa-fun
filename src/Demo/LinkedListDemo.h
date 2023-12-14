@@ -4,10 +4,11 @@
 #include <vector>
 
 #include "../List/LinkedList.h"
-#define STACK_STACK_H_
 
 namespace Demo {
 inline void runLinkedList() {
+    std::cout << "LinkedList Playground!\n";
+
     List::LinkedList<int> list1{};
 
     list1.Append(2);

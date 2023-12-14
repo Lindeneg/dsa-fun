@@ -13,13 +13,14 @@ List::DynamicIntArray::DynamicIntArray()
 
 List::DynamicIntArray::DynamicIntArray(const DynamicIntArray& other)
     : mData(nullptr), mSize(0), mCapacity(0) {
-    std::cout << "Copy Constructor Called!\n";
+    std::cout << "DynamicIntArray Copy Constructor Called!\n";
+
     this->From(other);
 }
 
 List::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
     : mData(nullptr), mSize(0), mCapacity(0) {
-    std::cout << "Move Constructor Called!\n";
+    std::cout << "DynamicIntArray Move Constructor Called!\n";
 
     this->From(other);
 
@@ -30,7 +31,7 @@ List::DynamicIntArray::DynamicIntArray(DynamicIntArray&& other) noexcept
 }
 
 List::DynamicIntArray::~DynamicIntArray() {
-    std::cout << "Deconstructor called!\n";
+    std::cout << "DynamicIntArray Deconstructor called!\n";
     if (this->mData != nullptr) {
         delete[] this->mData;
         this->mSize = 0;
@@ -40,7 +41,7 @@ List::DynamicIntArray::~DynamicIntArray() {
 
 List::DynamicIntArray& List::DynamicIntArray::operator=(
     const DynamicIntArray& other) {
-    std::cout << "Copy Assignment Operator called!\n";
+    std::cout << "DynamicIntArray Copy Assignment Operator called!\n";
 
     if (this == &other) {
         return *this;
@@ -53,7 +54,7 @@ List::DynamicIntArray& List::DynamicIntArray::operator=(
 
 List::DynamicIntArray& List::DynamicIntArray::operator=(
     DynamicIntArray&& other) noexcept {
-    std::cout << "Move Assignment Operator called!\n";
+    std::cout << "DynamicIntArray Move Assignment Operator called!\n";
 
     if (this == &other) {
         return *this;
@@ -103,14 +104,14 @@ void List::DynamicIntArray::From(const DynamicIntArray& other) {
 bool List::DynamicIntArray::Resize(int newCapacity) {
     assert(newCapacity > 0 && "cannot honor non-positive capacity");
 
-    std::cout << "Resizing from " << this->mCapacity << " to " << newCapacity
-              << '\n';
+    std::cout << "DynamicIntArray Resizing from " << this->mCapacity << " to "
+              << newCapacity << '\n';
 
     int* oldData = this->mData;
     // we inform of result via return bool, so std::nothrow used here
     this->mData = new (std::nothrow) int[(unsigned long long)newCapacity];
     if (!this->mData) {
-        std::cout << "Failed to aquire new memory\n";
+        std::cout << "DynamicIntArray Failed to aquire new memory\n";
 
         this->mData = oldData;
         return false;
@@ -144,7 +145,7 @@ void List::DynamicIntArray::InitUninitializedData() {
 }
 
 bool List::DynamicIntArray::Append(int data) {
-    std::cout << "Appending " << data << '\n';
+    std::cout << "DynamicIntArray Appending " << data << '\n';
 
     if (this->mSize + 1 > this->mCapacity) {
         bool didResize = this->Resize(this->mCapacity * RESIZE_MULTIPLIER);
@@ -159,7 +160,7 @@ bool List::DynamicIntArray::Append(int data) {
 }
 
 void List::DynamicIntArray::Clear() {
-    std::cout << "Clearing Array\n";
+    std::cout << "DynamicIntArray Clearing Array\n";
 
     if (this->mSize <= 0) {
         return;

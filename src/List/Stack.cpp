@@ -3,27 +3,31 @@
 #include <cassert>
 #include <iostream>
 
-List::Stack::Stack(const Stack& other) : mTop(nullptr) {
-    std::cout << "Copy constructor called!\n";
+template <typename T>
+List::Stack<T>::Stack(const Stack& other) : mTop(nullptr) {
+    std::cout << "Stack Copy constructor called!\n";
 
     this->From(other);
 }
 
-List::Stack::Stack(Stack&& other) noexcept : mTop(nullptr) {
-    std::cout << "Move constructor called!\n";
+template <typename T>
+List::Stack<T>::Stack(Stack&& other) noexcept : mTop(nullptr) {
+    std::cout << "Stack Move constructor called!\n";
 
     this->From(other);
     other.Clear();
 }
 
-List::Stack::~Stack() {
-    std::cout << "Destructor called!\n";
+template <typename T>
+List::Stack<T>::~Stack<T>() {
+    std::cout << "Stack Destructor called!\n";
 
     this->Clear();
 }
 
-List::Stack& List::Stack::operator=(const Stack& other) {
-    std::cout << "Copy Assignment Operator called\n";
+template <typename T>
+List::Stack<T>& List::Stack<T>::operator=(const Stack& other) {
+    std::cout << "Stack Copy Assignment Operator called\n";
 
     if (this == &other) {
         return *this;
@@ -35,8 +39,9 @@ List::Stack& List::Stack::operator=(const Stack& other) {
     return *this;
 }
 
-List::Stack& List::Stack::operator=(Stack&& other) noexcept {
-    std::cout << "Move Assignment Operator called\n";
+template <typename T>
+List::Stack<T>& List::Stack<T>::operator=(Stack&& other) noexcept {
+    std::cout << "Stack Move Assignment Operator called\n";
 
     if (this == &other) {
         return *this;
@@ -49,15 +54,17 @@ List::Stack& List::Stack::operator=(Stack&& other) noexcept {
     return *this;
 }
 
-List::StackNode* List::Stack::CreateNode(int data) {
-    auto newNode = new StackNode();
+template <typename T>
+List::StackNode<T>* List::Stack<T>::CreateNode(T data) {
+    auto newNode = new StackNode<T>();
     newNode->data = data;
     newNode->next = nullptr;
 
     return newNode;
 }
 
-void List::Stack::Prepend(int data) {
+template <typename T>
+void List::Stack<T>::Prepend(T data) {
     auto newNode = this->CreateNode(data);
 
     if (this->mTop == nullptr) {
@@ -72,7 +79,8 @@ void List::Stack::Prepend(int data) {
     current->next = newNode;
 }
 
-void List::Stack::From(const Stack& other) {
+template <typename T>
+void List::Stack<T>::From(const Stack& other) {
     if (this->mTop != nullptr) {
         this->Clear();
     }
@@ -84,14 +92,14 @@ void List::Stack::From(const Stack& other) {
     }
 }
 
-void List::Stack::Reverse() {
-    std::cout << "Reversing stack\n";
+template <typename T>
+void List::Stack<T>::Reverse() {
     if (this->mTop == nullptr || this->mTop->next == nullptr) {
         return;
     }
 
     auto current = this->mTop;
-    StackNode* prev = nullptr;
+    StackNode<T>* prev = nullptr;
     while (current->next != nullptr) {
         auto next = current->next;
         current->next = prev;
@@ -102,7 +110,8 @@ void List::Stack::Reverse() {
     this->mTop = current;
 }
 
-void List::Stack::Clear() {
+template <typename T>
+void List::Stack<T>::Clear() {
     if (this->mTop == nullptr) {
         return;
     }
@@ -111,14 +120,12 @@ void List::Stack::Clear() {
     while (current != nullptr) {
         auto tmp = current;
         current = current->next;
-        std::cout << "Freeing " << tmp->data << '\n';
         delete tmp;
     }
 }
 
-void List::Stack::Push(int data) {
-    std::cout << "Pushing " << data << '\n';
-
+template <typename T>
+void List::Stack<T>::Push(T data) {
     auto newNode = this->CreateNode(data);
     if (this->mTop == nullptr) {
         this->mTop = newNode;
@@ -130,18 +137,25 @@ void List::Stack::Push(int data) {
     this->mTop = newNode;
 }
 
-int List::Stack::Pop() {
+template <typename T>
+T List::Stack<T>::Pop() {
     assert(this->mTop != nullptr && "cannot pop from empty stack");
-
-    std::cout << "Popping top\n";
 
     auto oldTop = this->mTop;
     this->mTop = oldTop->next;
 
-    int data = oldTop->data;
+    T data = oldTop->data;
 
     delete oldTop;
 
     return data;
 }
 
+template <typename T>
+T List::Stack<T>::Top() const {
+    assert(this->mTop != nullptr && "cannot top from empty stack");
+    return this->mTop->data;
+}
+
+template class List::Stack<int>;
+template class List::Stack<char>;
