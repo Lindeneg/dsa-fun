@@ -36,6 +36,7 @@ List::DynamicIntArray::~DynamicIntArray() {
         delete[] this->mData;
         this->mSize = 0;
         this->mCapacity = 0;
+        this->mData = nullptr;
     }
 }
 

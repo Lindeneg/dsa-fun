@@ -99,7 +99,6 @@ void List::LinkedList<T>::Clear() {
 
         this->Free(tmp);
     }
-
     this->mHead = nullptr;
 }
 

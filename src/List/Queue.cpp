@@ -119,4 +119,4 @@ T List::Queue<T>::Front() const {
 }
 
 template class List::Queue<int>;
-template class List::Queue<Graph::BSTNode*>;
+template class List::Queue<const Graph::BSTNode*>;

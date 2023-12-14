@@ -122,6 +122,7 @@ void List::Stack<T>::Clear() {
         current = current->next;
         delete tmp;
     }
+    this->mTop = nullptr;
 }
 
 template <typename T>
