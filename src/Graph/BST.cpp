@@ -92,10 +92,10 @@ int Graph::BST::GetHeight(BSTNode* root) const {
     return std::max(leftHeight, rightHeight) + 1;
 }
 
-int Graph::BST::FindMin() const {
-    assert(this->mRoot != nullptr && "cannot find min of empty tree");
+int Graph::BST::FindMin(BSTNode* root) const {
+    assert(root != nullptr && "cannot find min of empty tree");
 
-    auto current = this->mRoot;
+    auto current = root;
     while (current->left != nullptr) {
         current = current->left;
     }
@@ -184,6 +184,38 @@ void Graph::BST::BreadthFirstSearch(const BSTNode* root) const {
     }
 
     std::cout << '\n';
+}
+
+Graph::BSTNode* Graph::BST::RemoveNode(BSTNode* root, int data) {
+    if (root != nullptr) {
+        if (data < root->data) {
+            root->left = this->RemoveNode(root->left, data);
+        } else if (data > root->data) {
+            root->right = this->RemoveNode(root->right, data);
+        } else {
+            if (root->left == nullptr && root->right == nullptr) {
+                std::cout << "BST No Child Remove " << root->data << '\n';
+                delete root;
+                root = nullptr;
+            } else if (root->left == nullptr && root->right != nullptr) {
+                std::cout << "BST Right Child Remove " << root->data << '\n';
+                auto tmp = root;
+                root = root->right;
+                delete tmp;
+            } else if (root->right == nullptr && root->left != nullptr) {
+                std::cout << "BST Left Child Remove " << root->data << '\n';
+                auto tmp = root;
+                root = root->left;
+                delete tmp;
+            } else {
+                std::cout << "BST Both Childs Remove\n";
+                auto rightMin = this->FindMin(root->right);
+                root->data = rightMin;
+                root->right = this->RemoveNode(root->right, rightMin);
+            }
+        }
+    }
+    return root;
 }
 
 void Graph::BST::DFSPreOrder(const BSTNode* root) const {

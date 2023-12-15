@@ -9,6 +9,7 @@ int main() {
     // Demo::runQueue();
 
     Demo::runBST();
+    // Problem::IsBST();
 
     std::cout << "Ending main\n";
     return 0;

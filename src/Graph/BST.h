@@ -34,6 +34,8 @@ class BST {
     void DFSPostOrder(const BSTNode* root) const;
     void From(const BSTNode* root);
     void Clear(BSTNode* root);
+    int FindMin(BSTNode* root) const;
+    BSTNode* RemoveNode(BSTNode* root, int data);
     void Print(std::ostream& os, BSTNode* parent, BSTNode* root, int depth,
                Direction d) const;
 
@@ -66,9 +68,11 @@ class BST {
         }
         this->mRoot = nullptr;
     }
+    inline BSTNode* GetRoot() const { return this->mRoot; }
     inline int GetHeight() const { return this->GetHeight(this->mRoot); }
+    inline void RemoveNode(int data) { this->RemoveNode(this->mRoot, data); }
     /* Min value will always reside as a leaf node in left-subtree. */
-    int FindMin() const;
+    inline int FindMin() const { return this->FindMin(this->mRoot); }
     /* Max value will always reside as a leaf node in right-subtree. */
     int FindMax() const;
     /* Visits all nodes at a given depth before going on to next depth */

@@ -28,7 +28,7 @@ inline void runBST() {
 
     Graph::BST bst2{bst};
 
-    // std::cout << bst2 << '\n';
+    std::cout << bst2 << '\n';
 
     std::cout << "Min: " << bst.FindMin() << '\n';
     std::cout << "Max: " << bst.FindMax() << '\n';
@@ -45,6 +45,10 @@ inline void runBST() {
     bst.DFSInOrder();
     std::cout << "\nDFS Post Order\n";
     bst.DFSPostOrder();
+
+    std::cout << "\nDeleting 12 " << '\n' << bst;
+    bst.RemoveNode(12);
+    std::cout << "After: " << '\n' << bst;
 
     std::cout << '\n';
 }
